@@ -4,15 +4,15 @@ import java.util.Arrays;
 
 public class SingleBiometricData {
 
-    private final byte[] KeyData;
+    private final byte[] keyData;
 
     public SingleBiometricData(byte[] keyData) {
         if(keyData == null) throw new NullPointerException("The Key data can't be null");
-        this.KeyData = keyData;
+        this.keyData = keyData;
     }
 
     public byte[] getKeyData() {
-        return KeyData;
+        return keyData;
     }
 
     @Override
@@ -20,18 +20,18 @@ public class SingleBiometricData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SingleBiometricData that = (SingleBiometricData) o;
-        return Arrays.equals(KeyData, that.KeyData);
+        return Arrays.equals(keyData, that.keyData);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(KeyData);
+        return Arrays.hashCode(keyData);
     }
 
     @Override
     public String toString() {
         return "SingleBiometricData{" +
-                "KeyData=" + Arrays.toString(KeyData) +
+                "KeyData=" + Arrays.toString(keyData) +
                 '}';
     }
 }
