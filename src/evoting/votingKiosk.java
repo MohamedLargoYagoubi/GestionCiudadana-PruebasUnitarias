@@ -1,11 +1,11 @@
 package evoting;
 
 // Importamos únicamente las excepciones y las clases de paquete data que vayamos a utilizar
-import data.BiometricData;
-import data.Nif;
-import data.Password;
-import data.VotingOption;
+import data.*;
+import evoting.biometricdataperipheral.HumanBiometricScanner;
+import evoting.biometricdataperipheral.PassportBiometricReader;
 import exceptions.*;
+import services.ElectoralOrganism;
 
 /**
  * Internal classes involved in the exercise of the vote
@@ -25,8 +25,16 @@ public class votingKiosk {
     private char supportConfirmation;
     private Nif manualNif;
     private VotingOption selectedVotingOption;
-    private BiometricData dataBiometric;
-    private String consent;
+
+    private BiometricData passpBioD;
+    private BiometricData humanBioD;
+    private char consent;
+    PassportBiometricReader passportValidationService;
+    HumanBiometricScanner humanBiometricScanner;
+    SingleBiometricData faceBiometricData;
+    SingleBiometricData fingerprintBiometricData;
+    ElectoralOrganism electoralOrganism;
+    boolean vote = false;
 
     public votingKiosk() {
 
@@ -87,24 +95,41 @@ public class votingKiosk {
     }
     private void removeBiometricData () {
         // Hay que hacer
-        dataBiometric = null;
+        humanBioD = null;
+        passpBioD = null;
         System.out.println("Datos biometricos eliminados");
     }
     public void grantExplicitConsent (char cons) throws InvalidConsentException{
         if (cons != 's' || cons != 'S') throw new InvalidConsentException("Consentimiento explicito denegado");
         System.out.println("Consentimineto explicito otorgado");
-        consent = consent;
+        consent = cons;
 
     }
     public void readPassport () throws NotValidPassportException, PassportBiometricReadingException{
-        // Hay que hacer
+        passportValidationService.validatePassport();
+        manualNif = passportValidationService.getNifWithOCR();
+        passpBioD = passportValidationService.getPassportBiometricData();
+        System.out.println("Lectura de pasaporte correcta");
     }
     public void readFaceBiometrics () throws HumanBiometricScanningException{
-        // Hay que hacer
+        faceBiometricData = humanBiometricScanner.scanFaceBiometrics();
+        System.out.println("Lectura biometrica facial ");
+
+
     }
     public void readFingerPrintBiometrics () throws NotEnabledException, HumanBiometricScanningException, BiometricVerificationFailedException, ConnectException{
-        // Hay que hacer
+        fingerprintBiometricData = humanBiometricScanner.scanFingerprintBiometrics();
+        humanBioD = new BiometricData(faceBiometricData,fingerprintBiometricData);
+        verifiyBiometricData(humanBioD,passpBioD);
+        System.out.println("Lectura de datos biométricos correcta.");
+        // Eliminación de datos biometricos
+        removeBiometricData();
+        electoralOrganism.canVote(manualNif);
+        vote = true;
+        electoralOrganism.disableVoter(manualNif);
+
     }
+
 
 }
 
