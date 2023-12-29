@@ -5,3 +5,4 @@ public class InvalidConsentException extends Exception{
         super(message);
     }
 }
+
