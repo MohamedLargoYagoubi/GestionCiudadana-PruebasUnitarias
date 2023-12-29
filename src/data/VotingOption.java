@@ -6,6 +6,7 @@ package data;
 final public class VotingOption {
     // The tax identification number in the Spanish state.
     private final String party;
+
     public VotingOption (String option) { this. party = option; }
     public String getParty () { return party; }
     @Override

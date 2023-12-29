@@ -34,4 +34,6 @@ public class SingleBiometricData {
                 "KeyData=" + Arrays.toString(keyData) +
                 '}';
     }
+
 }
+
