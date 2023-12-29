@@ -6,42 +6,85 @@ import data.Nif;
 import data.Password;
 import data.VotingOption;
 import exceptions.*;
+import services.ElectoralOrganism;
+import services.LocalService;
+import services.Scrutiny;
 
 /**
  * Internal classes involved in the exercise of the vote
  */
 public class votingKiosk {
+
+    LocalService serviceLocal;
+    ElectoralOrganism organismElectoral;
+    Scrutiny scrutiny;
+    //Opción de identificación: 'D' para el DNI y 'P' para el pasaporte.
+    private char idOption;
+
+    private boolean voteConf;
+
+     //Último partido consultado.
+     private VotingOption consultedParty;
+
+     public votingKiosk(LocalService ls, ElectoralOrganism eo, Scrutiny scr) {
+         this.serviceLocal = ls;
+         this.organismElectoral = eo;
+         this.scrutiny = scr;
+         this.voteConf = false;
+     }
+
+     Nif voterNIF;
+
+
     // ??? The class members
     // ??? The constructor/s
     // Input events
     public void initVoting () {
-        // Hay que hacer
+        System.out.println("Bienvenido.\n Seleccione la funcionalidad deseada");
     }
     public void setDocument (char opt) {
-        // Hay que hacer
+       idOption = opt;
     }
     public void enterAccount (String login, Password pssw) throws InvalidAccountException {
-        // Hay que hacer
+         try {
+             serviceLocal.verifyAccount(login, pssw);
+         }catch (InvalidAccountException e) {
+             System.out.println("La cuenta de acceso proporcionada es inválida");
+         }
     }
     public void confirmIdentif (char conf) throws InvalidDNIDocumException {
-        // Hay que hacer
+        if(conf == 'N') {
+            throw new InvalidDNIDocumException("El documento está caducado, no es válido o no corresponde a la persona.");
+        }
+
     }
     public void enterNif (Nif nif) throws NotEnabledException, ConnectException{
-        // Hay que hacer
+         this.voterNIF = nif;
+         this.organismElectoral.canVote(this.voterNIF);
+         System.out.println("El usuario puede votar.");
+
     }
     public void initOptionsNavigation () {
-        // Hay que hacer
+        System.out.println("Opciones de voto: ");
     }
     public void consultVotingOption (VotingOption vopt) {
-        // Hay que hacer
+        consultedParty = vopt;
+        System.out.println("Información sobre el partido" + consultedParty.getParty() + ": ");
     }
     public void vote () {
-        // Hay que hacer
+        System.out.println("Usted ha escogido votar a: " + this.consultedParty.getParty());
+        System.out.println(("Confirme si desea votar al partido seleccionado: "));
     }
 
     public void confirmVotingOption (char conf) throws ConnectException {
-        // Hay que hacer
-        // Internal operation, not required
+        if(conf == 'S') {
+            voteConf = true;
+            System.out.println("Procesando voto...");
+            this.scrutiny.scrutinize(this.consultedParty);
+            this.organismElectoral.disableVoter(this.voterNIF);
+            System.out.println("Voto escrutado correctamente.");
+        }
+
     }
 
     private void finalizeSession () {
