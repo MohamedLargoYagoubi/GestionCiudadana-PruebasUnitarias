@@ -5,7 +5,7 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NifTest {
+class NifDataTest {
 
     String correctNifDNI = "12345678Z";
     String correctNifNIE = "Y2345678Z";

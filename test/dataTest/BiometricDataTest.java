@@ -1,5 +1,3 @@
-package dataTest;
-
 import data.BiometricData;
 import data.SingleBiometricData;
 import org.junit.jupiter.api.BeforeEach;
