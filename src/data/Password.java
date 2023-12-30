@@ -31,7 +31,6 @@ public class Password {
             }
         }
 
-        //return pswrd.matches("[a-z],[A-Z],[0-9],[-][_]");
         return true;
     }
 
