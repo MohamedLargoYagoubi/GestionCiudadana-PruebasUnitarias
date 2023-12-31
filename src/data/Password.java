@@ -24,13 +24,14 @@ public class Password {
         } else if(pswrd.length() < 8 || pswrd.length() > 20) {
             return false;
         }
-            //comprova que els caràcters siguin lletres o números
+        //comprova que els caràcters siguin lletres o números
         for(int i = 0; i < pswrd.length(); i++) {
             if(!Character.isLetter(pswrd.charAt(i)) && !Character.isDigit(pswrd.charAt(i))) {
                 return false;
             }
         }
 
+        //return pswrd.matches("[a-z],[A-Z],[0-9],[-][_]");
         return true;
     }
 
@@ -38,7 +39,7 @@ public class Password {
     public boolean equals (Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Password p0 = (Password) o; 
+        Password p0 = (Password) o;
         return password.equals(p0.password);
     }
 
