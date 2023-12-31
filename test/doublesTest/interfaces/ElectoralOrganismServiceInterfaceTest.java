@@ -20,5 +20,4 @@ public interface ElectoralOrganismServiceInterfaceTest {
 
     @Test
     void disableNifTest();
-
 }

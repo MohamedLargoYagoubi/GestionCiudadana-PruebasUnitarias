@@ -1,7 +1,8 @@
+package interfaces;
+
 import org.junit.jupiter.api.Test;
 
 public interface ScrutinyInterfaceTest {
-
     @Test
     void testInitVoteCount();
     @Test

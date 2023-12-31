@@ -1,3 +1,5 @@
+package doublesTest;
+
 import data.Password;
 import doubles.LocalServiceOk;
 import exceptions.InvalidAccountException;
@@ -11,7 +13,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class LocalServiceDoubleTest implements LocalServiceInterfaceTest{
+public class LocalServiceDoubleTest implements interfaces.LocalServiceInterfaceTest {
 
    LocalServiceOk loclaserviceOk;
    Map<Password, String> userCredentials;
