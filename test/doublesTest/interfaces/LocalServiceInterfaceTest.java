@@ -1,8 +1,9 @@
+package interfaces;
+
 import exceptions.InvalidAccountException;
 import org.junit.jupiter.api.Test;
 
 public interface LocalServiceInterfaceTest {
-
     @Test
     void verifyAccountValidAccessTest();
 
