@@ -23,24 +23,25 @@ public class ScrutiyOk implements Scrutiny {
         blankVotes = 0;
 
         if(validParties != null) {
-            for (VotingOption party: validParties) {
-                votesCount.put(party,0);
+            for (VotingOption party : validParties) {
+                votesCount.put(party, 0);
             }
         }
+        totalVotes = validParties.size();
     }
 
     @Override
     public void scrutinize(VotingOption vopt) {
         if (vopt == null) {
             nullVotes++;
-        } else if (vopt.getParty().equals("NULO")) {
+        } else if ("NULO".equals(vopt.getParty())) {
             nullVotes++;
-        } else if (vopt.getParty().equals("BLANCO")) {
+        } else if ("BLANCO".equals(vopt.getParty())) {
             blankVotes++;
         } else {
-            votesCount.put(vopt, votesCount.getOrDefault(vopt, 0) + 1 );
+            int vot = votesCount.get(vopt);
+            votesCount.put(vopt, vot +1 );
         }
-        totalVotes++;
     }
 
     @Override
@@ -50,7 +51,7 @@ public class ScrutiyOk implements Scrutiny {
 
     @Override
     public int getTotal() {
-        return totalVotes + blankVotes;
+        return totalVotes;
     }
 
     @Override

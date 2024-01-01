@@ -9,7 +9,7 @@ public class ElectoralOrganismServiceIncorrect implements ElectoralOrganism {
 
     @Override
     public void canVote(Nif nif) throws NotEnabledException, ConnectException {
-        if(!(nif.isValidNIF(nif.getNif()))) throw new NotEnabledException("El votante ya ha votado o no está en un colegio electoral que le corresponde");
+        if(!(nif.isValidNIF(nif.getNif())) || nif == null) throw new NotEnabledException("El votante ya ha votado o no está en un colegio electoral que le corresponde");
     }
 
     @Override

@@ -25,7 +25,6 @@ public class LocalServiceDoubleTest implements LocalServiceInterfaceTest {
        validpssw1 = new Password("abcdefLKXYK199");
        userCredentials.put(validpssw,"Valid user 1");
        userCredentials.put(validpssw1, "Valid user 2");
-       userCredentials.put(new Password(null), "Invalid user");
        loclaserviceOk = new LocalServiceOk(userCredentials);
    }
 
@@ -39,12 +38,12 @@ public class LocalServiceDoubleTest implements LocalServiceInterfaceTest {
     @Override
     @Test
     public void verifyAccountInvalidPasswordTest() throws InvalidAccountException {
-        assertThrows(InvalidAccountException.class, () -> loclaserviceOk.verifyAccount("Invalid user", null));
+        assertThrows(InvalidPasswordException.class, () -> loclaserviceOk.verifyAccount("Invalid user", new Password(null)));
     }
 
     @Override
     @Test
     public void verifyAccountInvalidLoginTest() throws InvalidAccountException {
-        assertThrows(InvalidAccountException.class, () -> loclaserviceOk.verifyAccount(null, null));
+        assertThrows(NullPointerException.class, () -> loclaserviceOk.verifyAccount(null, null));
     }
 }

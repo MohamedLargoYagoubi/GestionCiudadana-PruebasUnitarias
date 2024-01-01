@@ -17,10 +17,6 @@ public class HumanBiometricScannerIncorrectFinger implements HumanBiometricScann
 
     @Override
     public SingleBiometricData scanFingerprintBiometrics() throws HumanBiometricScanningException {
-        try {
-            return null;
-        } catch (Exception e) {
-            throw new HumanBiometricScanningException("Datos dactilares incorrectos");
-        }
+        throw new HumanBiometricScanningException("Datos dactilares incorrectos");
     }
 }

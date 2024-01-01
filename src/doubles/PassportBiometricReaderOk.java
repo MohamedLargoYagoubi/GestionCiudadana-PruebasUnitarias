@@ -8,8 +8,14 @@ import exceptions.NotValidPassportException;
 import exceptions.PassportBiometricReadingException;
 
 public class PassportBiometricReaderOk implements PassportBiometricReader {
-    BiometricData passpBD;
-    Nif nif;
+    private BiometricData passpBD;
+    private Nif nif;
+
+    public PassportBiometricReaderOk(BiometricData passpBD,Nif nif) {
+        this.passpBD = passpBD;
+        this.nif = nif;
+    }
+
     @Override
     public void validatePassport() throws NotValidPassportException {
         try {

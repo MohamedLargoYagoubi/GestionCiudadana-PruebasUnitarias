@@ -5,6 +5,7 @@ import doubles.HumanBiometricScannerOk;
 import doublesTest.interfaces.HumanBiometricScannerInterfaceTest;
 import exceptions.HumanBiometricScanningException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,6 +18,7 @@ public class HumanBiometricScannerDoubleTest implements HumanBiometricScannerInt
 
 
     @BeforeEach
+    @Test
     public void setUp() {
         hbsOk = new HumanBiometricScannerOk();
         hbsIncorrectFinger = new HumanBiometricScannerIncorrectFinger();
@@ -25,12 +27,14 @@ public class HumanBiometricScannerDoubleTest implements HumanBiometricScannerInt
     }
 
     @Override
+    @Test
     public void scanBiometricOkTest() throws HumanBiometricScanningException {
         assertEquals(hbsOk.scanFaceBiometrics().getKeyData().length,hbsOk.scanFingerprintBiometrics().getKeyData().length);
         assertDoesNotThrow(() -> hbsOk);
     }
 
     @Override
+    @Test
     public void incorrectScanFaceBiometricTest() throws HumanBiometricScanningException {
         assertThrows(HumanBiometricScanningException.class, () -> hbsIncorrectFace.scanFaceBiometrics());
         assertThrows(HumanBiometricScanningException.class, () -> hbsIncorrect.scanFaceBiometrics());
@@ -39,6 +43,7 @@ public class HumanBiometricScannerDoubleTest implements HumanBiometricScannerInt
     }
 
     @Override
+    @Test
     public void incorrectScanFingerprintBiometricTest() throws HumanBiometricScanningException {
         assertThrows(HumanBiometricScanningException.class, () -> hbsIncorrect.scanFingerprintBiometrics());
         assertThrows(HumanBiometricScanningException.class, () -> hbsIncorrectFinger.scanFingerprintBiometrics());
@@ -46,3 +51,4 @@ public class HumanBiometricScannerDoubleTest implements HumanBiometricScannerInt
         assertDoesNotThrow(() -> hbsIncorrectFinger.scanFaceBiometrics());
     }
 }
+

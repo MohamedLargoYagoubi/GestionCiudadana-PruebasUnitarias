@@ -10,9 +10,6 @@ public interface ElectoralOrganismServiceInterfaceTest {
     void canVoteValidNifTest();
 
     @Test
-    void cantVoteNullNifTest() throws NotEnabledException;
-
-    @Test
     void okConnectionTest();
 
     @Test

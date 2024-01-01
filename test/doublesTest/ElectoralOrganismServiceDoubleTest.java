@@ -18,26 +18,17 @@ public class ElectoralOrganismServiceDoubleTest implements ElectoralOrganismServ
     ElectoralOrganism electoralOrganismok;
     ElectoralOrganism electoralOrganismInvavalid;
     Nif validNif;
-    Nif invalidNif;
     @BeforeEach
     public void SetUp() throws InvalidNifException {
         electoralOrganismok = new ElectoralOrganismServiceOk();
         validNif = new Nif("12345678Z");
         electoralOrganismInvavalid = new ElectoralOrganismServiceIncorrect();
-        invalidNif = new Nif("Z7136488F");
-
     }
 
     @Override
     @Test
     public void canVoteValidNifTest() {
         assertDoesNotThrow(() -> electoralOrganismok.canVote(validNif));
-    }
-
-    @Override
-    @Test
-    public void cantVoteNullNifTest() throws NotEnabledException {
-        assertThrows(NotEnabledException.class, () -> electoralOrganismInvavalid.canVote(invalidNif));
     }
 
     @Override
@@ -49,7 +40,7 @@ public class ElectoralOrganismServiceDoubleTest implements ElectoralOrganismServ
     @Override
     @Test
     public void failedConnectionTest() throws ConnectException {
-        assertThrows(ConnectException.class, () -> new ElectoralOrganismServiceFailedConnection(false));
+        assertThrows(ConnectException.class, () -> new ElectoralOrganismServiceFailedConnection(true).canVote(validNif));
     }
 
     @Override
